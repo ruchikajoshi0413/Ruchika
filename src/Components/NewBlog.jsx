@@ -10,12 +10,12 @@ function NewBlog() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`Name: ${name}`);
-    console.log(`Desc: ${desc}`);
-    console.log(`Createdby: ${createdby}`);
-    // console.log(localStorage.setItem('Name', name));
-    // console.log(localStorage.setItem('Desc', desc));
-    // console.log(localStorage.setItem('Createdby', createdby));
+    // console.log(`Name: ${name}`);
+    // console.log(`Desc: ${desc}`);
+    // console.log(`Createdby: ${createdby}`);
+    console.log(localStorage.setItem('Name', name));
+    console.log(localStorage.setItem('Desc', desc));
+    console.log(localStorage.setItem('Createdby', createdby));
 
           
     const newBlog = {name: name , desc: desc, createdby: createdby}
@@ -42,6 +42,13 @@ function NewBlog() {
     setIndex(index);
   };
 
+  const handleDelete = (index) => {
+    const newBlogs = [...blogs];
+    newBlogs.splice(index, 1);
+    setBlogs(newBlogs);
+    localStorage.setItem("blogs", JSON.stringify(newBlogs));
+  };
+
   React.useEffect(() => {
     const storedBlogs = JSON.parse(localStorage.getItem("item"));
     if (storedBlogs) {
@@ -53,12 +60,7 @@ function NewBlog() {
   console.log(localStorage.getItem('Desc'));
   console.log(localStorage.getItem('Createdby'));
   
-  const handleRemoveBlog =(index) => {
-    const newBlogs = [...blogs];
-    newBlogs.splice(index, 1);
-    setBlogs(newBlogs);
-    localStorage.setItem("blogs", JSON.stringify(newBlogs));
-  };  
+  
 
   return (
     <div >
@@ -83,7 +85,7 @@ function NewBlog() {
             <p>{blog.desc}</p>
             <p>{blog.createdby}</p>
             <button onClick={() => handleEditBlog(index)}>Edit</button>
-            <button onClick={() => handleRemoveBlog(index)}>Delete</button>
+            <button onClick={() => handleDelete(index)}>Delete</button>
           </div>
         ))}
       </div>
